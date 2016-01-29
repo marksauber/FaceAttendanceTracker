@@ -80,6 +80,7 @@ public class ControlWindow extends JFrame {
 		JButton btnTakeAttendance = new JButton("Take Attendance");
 		btnTakeAttendance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		ButtonPanel.add(btnTakeAttendance);

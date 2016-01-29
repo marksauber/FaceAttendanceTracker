@@ -42,10 +42,7 @@ public class ViewAttendance extends JFrame {
 		contentPane.add(meetingsPanel);
 		meetingsPanel.setLayout(new BorderLayout(0, 0));
 		
-		//TODO remove - sample data for meetings 
-		String[] meetings = {"1/25/2016", "1/26/2016", "1/27/2016"};
-		
-		JList<String> meetingsList = new JList<String>(meetings);
+		JList<String> meetingsList = new JList<String>(meetingsData());
 		meetingsPanel.add(meetingsList, BorderLayout.CENTER);
 		
 		/*
@@ -58,7 +55,20 @@ public class ViewAttendance extends JFrame {
 		contentPane.add(attendancePanel);
 		attendancePanel.setLayout(new BorderLayout(0, 0));
 		
-		//TODO remove - sample data for table 
+		attendanceTable = meetingAttendance();
+		attendancePanel.add(new JScrollPane(attendanceTable), BorderLayout.NORTH);
+	}
+
+	//Returns the full list of meetings that have happened
+	private static String[] meetingsData() {
+		//TODO - only filler data for now 
+		String[] meetings = {"1/25/2016", "1/26/2016", "1/27/2016"};
+		return meetings; 
+	} 
+	
+	//Returns the information on attendees to a particular meeting
+	private static JTable meetingAttendance() {
+		//TODO - only filler data for now 
 		String[] columnNames = {"Name", "ID"};
 		Object[][] data = {
 				{"Ben Nelson", "4815162342"}, 
@@ -66,8 +76,6 @@ public class ViewAttendance extends JFrame {
 				{"Chris Kelley", "248163264128"},
 				{"Davis Batten", "9021090210"}};
 		
-		attendanceTable = new JTable(data, columnNames);
-		attendancePanel.add(new JScrollPane(attendanceTable), BorderLayout.NORTH);
+		return new JTable(data, columnNames);
 	}
-
 }
