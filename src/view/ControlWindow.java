@@ -42,32 +42,47 @@ public class ControlWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 500);
 		
+		////////////
+		//Menu Bar//
+		////////////
+		
+		//creates the menu bar 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		//adds an view tab to the menu bar 
+		JMenu menu_View = new JMenu("View");
+		menuBar.add(menu_View);
+		//adds "view attendance history" to view menu. Clicking will open a new window to view attendance history 
+		JMenuItem menu_item_ViewAttendanceHistory = new JMenuItem("View Attendance History");
+		menu_item_ViewAttendanceHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewAttendance va = new ViewAttendance();
+				va.setVisible(true);
+			}
+		});
+		menu_View.add(menu_item_ViewAttendanceHistory);
 		
-		JMenu mnView = new JMenu("View");
-		menuBar.add(mnView);
-		
-		JMenuItem mntmViewAttendanceHistory = new JMenuItem("View Attendance History");
-		mnView.add(mntmViewAttendanceHistory);
+		////////////////////////
+		//Application Controls//
+		////////////////////////
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel ButtonPanel = new JPanel();
+		contentPane.add(ButtonPanel, BorderLayout.SOUTH);
+		ButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnTakeAttendance = new JButton("Take Attendance");
 		btnTakeAttendance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_1.add(btnTakeAttendance);
+		ButtonPanel.add(btnTakeAttendance);
 	}
 
 }
