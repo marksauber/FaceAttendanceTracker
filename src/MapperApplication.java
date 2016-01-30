@@ -21,11 +21,11 @@ public class MapperApplication {
 		CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_frontalface_alt.xml");
 		
 		String trainingDir = "trainingImages/";
+		String testImagePath = "testImages/davis_test.jpg";
 		FaceRecognizer faceRecognizer = FaceRecognitionUtility.newRecognizer(trainingDir);
 		
-		
-		Mat testImage = imread("keanu_test.jpg");
-		Mat testImageGray = imread("keanu_test.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+		Mat testImage = imread(testImagePath);
+		Mat testImageGray = imread(testImagePath, CV_LOAD_IMAGE_GRAYSCALE);
 		
 		RectVector faces = FaceDetector.detectFaces(faceDetector, testImageGray);
 		

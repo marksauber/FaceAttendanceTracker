@@ -39,7 +39,7 @@ public class FaceRecognitionUtility {
 		int counter = 0;
 		for (File image : imageFiles){
 			Mat img = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
-			int label = Integer.parseInt(image.getName().split("_")[0]);
+			int label = Integer.parseInt(image.getName().split("\\-")[0]);
 			System.out.println(label);
             images.put(counter, img);
             labelsBuf.put(counter, label);
@@ -47,7 +47,9 @@ public class FaceRecognitionUtility {
 		}
 		
 		//train new recognizer
-		LBPHFaceRecognizer faceRecognizer = createLBPHFaceRecognizer();
+		FaceRecognizer faceRecognizer = createLBPHFaceRecognizer();
+		//FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
+		//FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
 		faceRecognizer.train(images, labels);
 		
 		return faceRecognizer;
