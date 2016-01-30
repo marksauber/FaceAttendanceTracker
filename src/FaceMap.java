@@ -21,7 +21,7 @@ public class FaceMap extends JFrame{
 	public FaceMap(HashSet<FaceElement> faceSet){
 		//getting an iterator over our set of faces 
 		faces = faceSet; 
-		Iterator iterator = faces.iterator();
+		Iterator<FaceElement> iterator = faces.iterator();
 		
 		//JGraphx boilerplate 
 		mxGraph graph = new mxGraph(); 
@@ -40,6 +40,7 @@ public class FaceMap extends JFrame{
 				//add this vertex to the graph 
 				graph.insertVertex(parent, null, information, face.getXCoord(), face.getYCoord(), 50, 50);
 			}
+			//TODO implement adding edges
 		}
 		finally {
 			graph.getModel().endUpdate();
@@ -61,10 +62,5 @@ public class FaceMap extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 320);
 		frame.setVisible(true);
-	}
-	
-	//Adds a face to the map;
-	public void addFace(FaceElement face){
-		faces.add(face);
 	}
 }
