@@ -25,4 +25,16 @@ public class FaceElement {
 		this.y = y;
 	}
 	
+	public User getUser() {
+		return user; 
+	}
+	
+	public int getXCoord() {
+		return x; 
+	}
+	
+	public int getYCoord() {
+		return y; 
+	}
+	
 }
