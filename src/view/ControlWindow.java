@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,7 +78,7 @@ public class ControlWindow extends JFrame {
 		
 		//This panel will contain the Image Panel and the FaceMap Panel 
 		JPanel container = new JPanel();
-		container.setLayout(new FlowLayout());
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		contentPane.add(container, BorderLayout.CENTER);
 		
 		//The Image Panel - displays the image used to take attendance 

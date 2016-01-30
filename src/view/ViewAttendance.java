@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JTable;
 import javax.swing.JTree;
 
@@ -42,7 +44,7 @@ public class ViewAttendance extends JFrame {
 		contentPane.add(meetingsPanel);
 		meetingsPanel.setLayout(new BorderLayout(0, 0));
 		
-		JList<String> meetingsList = new JList<String>(meetingsData());
+		JList<String> meetingsList = new JList<String>();
 		meetingsPanel.add(meetingsList, BorderLayout.CENTER);
 		
 		/*
