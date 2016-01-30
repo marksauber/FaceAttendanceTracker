@@ -1,11 +1,10 @@
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Rect;
+import org.bytedeco.javacpp.opencv_core.RectVector;
 import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
-import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.imgcodecs.*;
-import org.opencv.imgproc.*;
+import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
+import static org.bytedeco.javacpp.opencv_imgcodecs.*;
+
 
 /**
  * Controller for the FaceMapper Project.
@@ -16,9 +15,8 @@ import org.opencv.imgproc.*;
 
 public class MapperApplication {
 	
-	public static void main(){
-		//TODO
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	public static void main(String[] args){
+		System.out.println("Mapper application running");
 		
 		CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_frontalface_alt.xml");
 		
@@ -26,23 +24,26 @@ public class MapperApplication {
 		FaceRecognizer faceRecognizer = FaceRecognitionUtility.newRecognizer(trainingDir);
 		
 		
-		Mat testImage = Imgcodecs.imread("testImages/keanu_test2.jpg");
-		Mat testImageGray = Imgcodecs.imread("testImages/keanu_test2.jpg", Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat testImage = imread("keanu_test.jpg");
+		Mat testImageGray = imread("keanu_test.jpg", CV_LOAD_IMAGE_GRAYSCALE);
 		
-		Rect[] faces = FaceDetector.detectFaces(faceDetector, testImageGray);
+		RectVector faces = FaceDetector.detectFaces(faceDetector, testImageGray);
 		
-
 		
-		for(Rect face : faces){
-			
+		for(int i = 0; i < faces.size(); i++){
+			Rect face = faces.get(i);
 			FaceDetector.drawRectangle(face, testImage);
-			Mat faceMat1 = testImage.submat(face);
+			Mat faceMat = new Mat(testImageGray, face);
 			int predictedLabel = faceRecognizer.predict(faceMat);
-			//System.out.println("Predicted label:" + predictedLabel);
+			String box_text = String.format("Prediction = %d", predictedLabel);
+			System.out.println(box_text);
 		}
 		
-		//int predictedLabel = faceRecognizer.predict(testImage);
-		//System.out.println("Predicted label:" + predictedLabel);
+		String filename = "output.png";
+		System.out.println(String.format("Writing %s", filename));
+		
+		imwrite(filename, testImage);
+		
 	}
 
 }

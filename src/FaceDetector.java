@@ -9,7 +9,7 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
 
 public class FaceDetector {
-	
+	/*
 	public static void main(String[] args){
 		//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		//System.out.println("Running Face Detection");
@@ -30,7 +30,7 @@ public class FaceDetector {
 		System.out.println(String.format("Writing %s", filename));
 		
 		imwrite(filename, image);
-	}
+	}*/
 	
 	/**
 	 * detects faces in the given image
