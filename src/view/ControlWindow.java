@@ -10,10 +10,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.BoxLayout;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JButton;
+
+import controller.FaceElement;
+import controller.User;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashSet;
 
 public class ControlWindow extends JFrame {
 
@@ -70,8 +77,7 @@ public class ControlWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel);
+		contentPane.add(controller.FaceMap.testFaceMap());
 		
 		JPanel ButtonPanel = new JPanel();
 		contentPane.add(ButtonPanel, BorderLayout.SOUTH);
