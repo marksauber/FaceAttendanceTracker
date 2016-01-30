@@ -7,12 +7,21 @@ import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_face.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 
-public class FaceRecognizer {
-	public static void main(String[] args){
-		String trainingDir = "trainingImages/";
-		Mat testImage = imread("testImages/keanu_test2.jpg", CV_LOAD_IMAGE_GRAYSCALE);
-		
+/**
+ * Utility to aid in the creation of a new FaceRecognizer
+ * @author Davis Batten
+ *
+ */
+public class FaceRecognitionUtility {
+	
+	/**
+	 * creates a new FaceRecognizer trained using the images found at the given training directory
+	 * @param trainingDir - location of the sample images used to train the recognizer
+	 * @return FaceRecognizer
+	 */
+	public static FaceRecognizer newRecognizer(String trainingDir){
 		File root = new File(trainingDir);
+		//filter for valid file types
 		FilenameFilter imgFilter = new FilenameFilter(){
 			public boolean accept(File dir, String name){
 				name = name.toLowerCase();
@@ -20,14 +29,13 @@ public class FaceRecognizer {
 			}
 		};
 		
-		
-		//get all sample images and labels
+		//get all sample image files and labels
 		File[] imageFiles = root.listFiles(imgFilter);
 		MatVector images = new MatVector(imageFiles.length);
 		Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
 		IntBuffer labelsBuf = labels.getIntBuffer();
 		
-
+		//get images and match with labels
 		int counter = 0;
 		for (File image : imageFiles){
 			Mat img = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
@@ -38,11 +46,11 @@ public class FaceRecognizer {
             counter++;
 		}
 		
+		//train new recognizer
 		LBPHFaceRecognizer faceRecognizer = createLBPHFaceRecognizer();
 		faceRecognizer.train(images, labels);
 		
-		int predictedLabel = faceRecognizer.predict(testImage);
-		System.out.println("Predicted label:" + predictedLabel);
-		
+		return faceRecognizer;
 	}
+	
 }
