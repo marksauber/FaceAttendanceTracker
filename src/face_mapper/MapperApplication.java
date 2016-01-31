@@ -79,12 +79,17 @@ public class MapperApplication {
 			attendance.add(predictedId);
 		}
 	
+		//should call take attendance here
 		
-		
-		//Output result
-		String filename = "output.png";
+		//Output result to history
+		String filename = "history/" + time.getTime() + ".jpg";
 		System.out.println(String.format("Writing %s", filename));
 		imwrite(filename, testImage);
+		
+		//Output temporary result
+		String filenameTemp = "output.png";
+		System.out.println(String.format("Writing %s", filenameTemp));
+		imwrite(filenameTemp, testImage);
 		
 	}
 
