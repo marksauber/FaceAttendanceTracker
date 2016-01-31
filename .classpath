@@ -7,7 +7,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Ben/Desktop/opencv/build/java/x64"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Ben/Desktop/opencv/build/java/opencv-310.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ben/Desktop/jgraphx-3.4.1.3/jgraphx-3.4.1.3/lib/jgraphx.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OpenCv-3.1.0"/>
+	<classpathentry kind="lib" path="C:/Users/marke_000/Downloads/jgraphx-3_4_1_3/jgraphx/lib/jgraphx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/marke_000/Downloads/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
