@@ -3,7 +3,6 @@ import java.awt.Image;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -73,7 +72,7 @@ public class DatabaseSupport {
 	{
 
 	}
-	public static Image getImage()
+	public static Image getImage(String filePath)
 	{
 		return null;
 		
@@ -85,7 +84,7 @@ public class DatabaseSupport {
 	 */
 	public static ArrayList<Person> getAttendance()
 	{
-		//Get the dates
+		//Get the ids
 		//Use dates to find info
 		ArrayList<Person> people = new ArrayList<Person>();
 		try {
@@ -107,12 +106,12 @@ public class DatabaseSupport {
 					
 					rs=stmt.executeQuery("select * from attendance where id='"+id+"'");
 					Person p = new Person(id);
-					HashMap<String, Integer> personalAttendance = new HashMap<String,Integer>();
+					ArrayList<String> personalDates = new ArrayList<String>();
 					while(rs.next())
 					{
-						personalAttendance.put(rs.getString("date"),rs.getInt("present"));
+						personalDates.add(rs.getString("date"));
 					}
-					p.setattendance(personalAttendance);
+					p.setDates(personalDates);
 					people.add(p);
 				}
 				rs.close();
@@ -140,15 +139,14 @@ public class DatabaseSupport {
 	 * are integers that are 1 someone was present
 	 * @param attendance
 	 */
-	public static void takeAttendance(Map<Integer, Integer> attendance)
+	public static void takeAttendance(ArrayList<Integer> ids,Date date)//Change to list of IDs
 	{
 		//Operations
 		//Get current Date
 		//add to Date table
 		//create table with date as the table name and insert the information
-		Date dNow = new Date( );
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy/MM/dd/hh:mm:ss");
-		String currentDate = ft.format(dNow);
+		String currentDate = ft.format(date);
 		try {
 			connection = getConnection();
 			if(connection==null){}
@@ -157,10 +155,10 @@ public class DatabaseSupport {
 				String sql = "INSERT INTO dates " +
 		                   "VALUES ('"+currentDate+"')";
 		      stmt.executeUpdate(sql);
-		      for (Entry<Integer, Integer> entry : attendance.entrySet()) {
-		    	    System.out.println("key=" + entry.getKey() + ", value=" + entry.getValue());
-		    	    sql = "INSERT INTO attendance(date,present,id) " +
-			                   "VALUES ('"+currentDate+"', '"+entry.getValue()+"', '"+entry.getKey()+"')";
+		      for (int id : ids) {
+		    	    System.out.println(id);
+		    	    sql = "INSERT INTO attendance(date,id) " +
+			                   "VALUES ('"+currentDate+"', '"+id+"')";
 		    	    stmt.executeUpdate(sql);
 		    	}
 		      

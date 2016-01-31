@@ -41,14 +41,11 @@ public class ViewAttendance extends JFrame {
 		for(Person p : persons) {
 			//add node for person 
 			//TODO - change to name 
-			DefaultMutableTreeNode person = new DefaultMutableTreeNode(p.getId());
-			for (Entry<String, Integer> entry : p.getattendance().entrySet()) {
-				 //key is the date value is 1 if present 
-				 if(entry.getValue() == 1) {
-					 //add key 
-					 DefaultMutableTreeNode date = new DefaultMutableTreeNode(entry.getKey());
-					 person.add(date);
-				 } 
+			DefaultMutableTreeNode person = new DefaultMutableTreeNode("ID: "+ p.getId() + " Name: "+DatabaseSupport.getName(p.getId()));
+			for (String date : p.getDates()) {
+
+				DefaultMutableTreeNode node = new DefaultMutableTreeNode(date);
+				person.add(node);
 		    }
 			top.add(person);
 		}

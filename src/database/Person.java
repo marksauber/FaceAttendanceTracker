@@ -1,5 +1,6 @@
 package database;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  */
 public class Person {
 	private int id;
-	private HashMap<String, Integer> attendance; 
+	private ArrayList<String> dates; 
 	public Person(int id){
 		this.id = id;
 
@@ -17,16 +18,16 @@ public class Person {
 	public int getId(){
 		return id;
 	}
-	public HashMap<String, Integer> getattendance(){
-		return attendance;
+	public ArrayList<String> getDates(){
+		return dates;
 	}
-	public void setattendance(HashMap<String, Integer> attendance){
-		this.attendance = attendance;
+	public void setDates(ArrayList<String> dates){
+		this.dates =dates;
 	}
 	@Override
 	public String toString()
 	{
-		return id + " "+attendance.toString();
+		return id + " "+dates.toString();
 		
 	}
 }

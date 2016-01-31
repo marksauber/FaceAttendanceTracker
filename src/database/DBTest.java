@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.*;
 
 /**
  * Test class for database 
@@ -15,13 +16,13 @@ public class DBTest {
 
 	public static void main(String[] args) {
 		System.out.println(DatabaseSupport.getName(1));
-		Map<Integer,Integer> attendance = new HashMap<Integer,Integer>();
+		ArrayList<Integer> ids = new ArrayList<Integer>();
 		
-		attendance.put(1, 0);
-		attendance.put(2, 1);
-		attendance.put(3,0);
-		attendance.put(4, 1);
-		//DatabaseSupport.takeAttendance(attendance);
+		ids.add(1);
+		ids.add(2);
+		ids.add(3);
+		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+		DatabaseSupport.takeAttendance(ids,date);
 		
 		ArrayList<Person> people = DatabaseSupport.getAttendance();
 		for(Person p: people){
