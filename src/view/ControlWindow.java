@@ -96,7 +96,7 @@ public class ControlWindow extends JFrame {
 		container.add(imagePanel);
 		
 		//The FaceMap Panel - displays the facemap created from the above image
-		container.add(controller.FaceMap.testFaceMap());
+		//container.add(controller.FaceMap.testFaceMap());
 		
 		//The Button Panel - just contains the button to take attendance 
 		JPanel ButtonPanel = new JPanel();

@@ -1,43 +1,33 @@
 package testing;
 
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
-import java.awt.Panel;
-import java.awt.ScrollPane;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import view.ViewAttendance;
+
 public class Face {
 	private String path;
+	private JLabel lbl_photo;
+	private JLabel lbl_faceMap;
 	private ImageIcon image;
 	private JFrame frmFaceMapper;
 	private JTextField textField_addPhoto;
-	/**
-	 * @wbp.nonvisual location=102,159
-	 */
-	private final Panel panel_photo = new Panel();
-	/**
-	 * @wbp.nonvisual location=292,169
-	 */
-	private final Panel panel_faceMap = new Panel();
-	/**
-	 * @wbp.nonvisual location=562,169
-	 */
-	private final Panel panel_attendance = new Panel();
 
 	/**
 	 * Launch the application.
@@ -48,6 +38,7 @@ public class Face {
 				try {
 					Face window = new Face();
 					window.frmFaceMapper.setVisible(true);
+					face_mapper.MapperApplication.main(args);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,25 +58,6 @@ public class Face {
 	 */
 	private void initialize() {
 		
-		//attendance scroll pane
-		ScrollPane scroll_attendance = new ScrollPane();
-		panel_attendance.add(scroll_attendance);
-		JLabel lbl_attendance = new JLabel("Attendance Table");
-		scroll_attendance.add(lbl_attendance);
-		
-		//face map scroll pane
-		ScrollPane scroll_faceMap = new ScrollPane();
-		panel_faceMap.add(scroll_faceMap);
-		JLabel lbl_faceMap = new JLabel("Face Map");
-		scroll_faceMap.add(lbl_faceMap);
-		
-		//searched photo pane
-		ScrollPane scroll_photo = new ScrollPane();
-		panel_photo.add(scroll_photo);
-		JLabel lbl_photo = new JLabel("added photo");
-		scroll_photo.add(lbl_photo);
-		
-		
 		frmFaceMapper = new JFrame();
 		frmFaceMapper.setTitle("Face Mapper");
 		frmFaceMapper.setBounds(100, 100, 789, 415);
@@ -95,6 +67,26 @@ public class Face {
 		textField_addPhoto.setText("add photo");
 		textField_addPhoto.setColumns(10);
 		
+		lbl_photo = new JLabel("");
+		lbl_faceMap = new JLabel("");
+		
+		//creates the menu bar 
+		JMenuBar menuBar = new JMenuBar();
+		frmFaceMapper.setJMenuBar(menuBar);
+		//adds an view tab to the menu bar 
+		JMenu menu_View = new JMenu("View");
+		menuBar.add(menu_View);
+		//adds "view attendance history" to view menu. Clicking will open a new window to view attendance history 
+		JMenuItem menu_item_ViewAttendanceHistory = new JMenuItem("View Attendance History");
+		menu_item_ViewAttendanceHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewAttendance va = new ViewAttendance();
+				va.setVisible(true);
+			}
+		});
+		menu_View.add(menu_item_ViewAttendanceHistory);
+				
+		//adds browse button and displays photo and file path
 		JButton btn_browse = new JButton("browse");
 		btn_browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -103,22 +95,21 @@ public class Face {
 				File f = chooser.getSelectedFile();
 				path = f.getAbsolutePath();
 				textField_addPhoto.setText(path);
-				
-//				try {
-//					BufferedImage myPicture = ImageIO.read(new File(path));
-//					myPicture = resizeImage(myPicture,50,50,0);
-//					lbl_photo = new JLabel(new ImageIcon(myPicture));
-//					lbl_photo.setBounds(0, 0, 50, 50);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
+				lbl_photo.setIcon(resizePhoto(path));
 			}
 		});
-		//image = new ImageIcon(getClass().getResource(path));
-		//lbl_photo = new JLabel(image);
-		//scroll_photo.add(lbl_photo);
 		
-		JButton btn_attendance = new JButton("View Attendance");
+		//gets new face map from output.png after sending the file path through mapperAplication
+		JButton btn_attendance = new JButton("Take Attendance");
+		btn_attendance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//face_mapper.MapperApplication.mapper(path);
+				
+				lbl_faceMap.setIcon(resizeFaceMap("output.png"));
+			}
+		});
+		
 		GroupLayout groupLayout = new GroupLayout(frmFaceMapper.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -126,16 +117,24 @@ public class Face {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(textField_addPhoto, GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+							.addComponent(lbl_photo, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lbl_faceMap, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(textField_addPhoto, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btn_browse, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btn_attendance, GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
+						.addComponent(btn_attendance, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(310)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lbl_faceMap, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+						.addComponent(lbl_photo, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_addPhoto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btn_browse))
@@ -145,12 +144,22 @@ public class Face {
 		);
 		frmFaceMapper.getContentPane().setLayout(groupLayout);
 	}
-
-	 BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type) throws IOException {  
-		BufferedImage resizedImage = new BufferedImage(width, height, type);  
-		Graphics2D graphics = resizedImage.createGraphics();  
-		graphics.drawImage(originalImage, 0, 0, width, height, null);  
-		graphics.dispose();  
-		return resizedImage;  
-	}  
+	
+	private ImageIcon resizePhoto(String path)
+	{
+		ImageIcon myImage = new ImageIcon(path);
+		Image image = myImage.getImage();
+		Image newImage = image.getScaledInstance(lbl_photo.getWidth(),lbl_photo.getHeight(), Image.SCALE_SMOOTH);
+		ImageIcon img = new ImageIcon(newImage);
+		return img;
+	}
+	
+	private ImageIcon resizeFaceMap(String path)
+	{
+		ImageIcon myImage = new ImageIcon(path);
+		Image image = myImage.getImage();
+		Image newImage = image.getScaledInstance(lbl_faceMap.getWidth(),lbl_faceMap.getHeight(), Image.SCALE_SMOOTH);
+		ImageIcon img = new ImageIcon(newImage);
+		return img;
+	}
 }
