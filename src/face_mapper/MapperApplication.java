@@ -24,7 +24,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 
 public class MapperApplication {
 	
-	public static void main(String[] args){
+	public static void main(String[] args, String path){
 		System.out.println("Mapper application running");
 		
 		//Load Haar Cascade
@@ -32,7 +32,7 @@ public class MapperApplication {
 		
 		//Build and train new Face Recognizer
 		String trainingDir = "trainingImages/";
-		String testImagePath = "testImages/davis_test.jpg";
+		String testImagePath = path;
 		FaceRecognizer faceRecognizer = FaceRecognitionUtility.newRecognizer(trainingDir);
 		
 		//Scalar colors

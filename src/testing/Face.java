@@ -38,7 +38,6 @@ public class Face {
 				try {
 					Face window = new Face();
 					window.frmFaceMapper.setVisible(true);
-					face_mapper.MapperApplication.main(args);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -104,7 +103,7 @@ public class Face {
 		btn_attendance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				//face_mapper.MapperApplication.mapper(path);
+				face_mapper.MapperApplication.main(null, path);
 				
 				lbl_faceMap.setIcon(resizeFaceMap("output.png"));
 			}
