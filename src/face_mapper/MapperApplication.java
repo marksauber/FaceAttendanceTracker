@@ -15,6 +15,8 @@ import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 
+import database.DatabaseSupport;
+
 /**
  * Controller for the FaceMapper Project.
  * @author Davis Batten
@@ -79,8 +81,8 @@ public class MapperApplication {
 			attendance.add(predictedId);
 		}
 	
-		//should call take attendance here
-		
+		//Uncomment this if database is set up
+		//DatabaseSupport.takeAttendance(attendance, time);
 		//Output result to history
 		String filename = "history/" + time.getTime() + ".jpg";
 		System.out.println(String.format("Writing %s", filename));
