@@ -38,6 +38,7 @@ public class Face {
 				try {
 					Face window = new Face();
 					window.frmFaceMapper.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,7 +60,7 @@ public class Face {
 		
 		frmFaceMapper = new JFrame();
 		frmFaceMapper.setTitle("Face Mapper");
-		frmFaceMapper.setBounds(100, 100, 789, 415);
+		frmFaceMapper.setBounds(100, 100, 935, 499);
 		frmFaceMapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		textField_addPhoto = new JTextField();
@@ -94,7 +95,7 @@ public class Face {
 				File f = chooser.getSelectedFile();
 				path = f.getAbsolutePath();
 				textField_addPhoto.setText(path);
-				lbl_photo.setIcon(resizePhoto(path));
+				lbl_photo.setIcon(resizePhoto(path, lbl_photo));
 			}
 		});
 		
@@ -105,7 +106,7 @@ public class Face {
 				
 				face_mapper.MapperApplication.main(null, path);
 				
-				lbl_faceMap.setIcon(resizeFaceMap("output.png"));
+				lbl_faceMap.setIcon(resizePhoto("output.png", lbl_faceMap));
 			}
 		});
 		
@@ -114,25 +115,25 @@ public class Face {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lbl_photo, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lbl_faceMap, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(textField_addPhoto, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(lbl_photo, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lbl_faceMap, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(textField_addPhoto, GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btn_browse, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btn_attendance, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+						.addComponent(btn_attendance, GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lbl_faceMap, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-						.addComponent(lbl_photo, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lbl_faceMap, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+						.addComponent(lbl_photo, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_addPhoto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -144,20 +145,11 @@ public class Face {
 		frmFaceMapper.getContentPane().setLayout(groupLayout);
 	}
 	
-	private ImageIcon resizePhoto(String path)
+	private ImageIcon resizePhoto(String path, JLabel lbl)
 	{
 		ImageIcon myImage = new ImageIcon(path);
 		Image image = myImage.getImage();
-		Image newImage = image.getScaledInstance(lbl_photo.getWidth(),lbl_photo.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon img = new ImageIcon(newImage);
-		return img;
-	}
-	
-	private ImageIcon resizeFaceMap(String path)
-	{
-		ImageIcon myImage = new ImageIcon(path);
-		Image image = myImage.getImage();
-		Image newImage = image.getScaledInstance(lbl_faceMap.getWidth(),lbl_faceMap.getHeight(), Image.SCALE_SMOOTH);
+		Image newImage = image.getScaledInstance(lbl.getWidth(),lbl.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon img = new ImageIcon(newImage);
 		return img;
 	}
