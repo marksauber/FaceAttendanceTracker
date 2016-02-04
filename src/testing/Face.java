@@ -106,7 +106,7 @@ public class Face {
 				
 				face_mapper.MapperApplication.main(null, path);
 				
-				lbl_faceMap.setIcon(resizePhoto("output.png", lbl_faceMap));
+				lbl_faceMap.setIcon(resizePhoto("output.jpg", lbl_faceMap));
 			}
 		});
 		
