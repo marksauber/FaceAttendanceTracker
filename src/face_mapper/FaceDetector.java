@@ -43,7 +43,7 @@ public class FaceDetector {
 		RectVector faceDetections = new RectVector();
 		
 		//detection options
-		double scaleFactor = 1.2;
+		double scaleFactor = 1.3;
 		int minNeighbors = 5;
 		int flags = 0;
 		Size minSize = new Size(30,30);

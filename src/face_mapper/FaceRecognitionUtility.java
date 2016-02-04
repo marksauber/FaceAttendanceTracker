@@ -47,10 +47,11 @@ public class FaceRecognitionUtility {
             counter++;
 		}
 		
+		
 		//train new recognizer
-		FaceRecognizer faceRecognizer = createLBPHFaceRecognizer();
+		//FaceRecognizer faceRecognizer = createLBPHFaceRecognizer();
 		//FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
-		//FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+		FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
 		faceRecognizer.train(images, labels);
 		
 		return faceRecognizer;
